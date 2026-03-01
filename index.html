@@ -22,8 +22,8 @@
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;overflow:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.6}
 
-#app{display:flex;flex-direction:column;height:100vh;max-width:540px;margin:0 auto;position:relative}
-#header{padding:16px 20px 10px;background:linear-gradient(180deg,var(--bg) 0%,transparent 100%);position:relative;z-index:10;flex-shrink:0;text-align:center;display:flex;flex-direction:column;align-items:center}
+#app{position:fixed;top:0;left:0;right:0;bottom:0;max-width:540px;margin:0 auto;display:flex;flex-direction:column;overflow:hidden}
+#header{padding:0px 20px 10px;background:linear-gradient(180deg,var(--bg) 0%,transparent 100%);position:relative;z-index:10;flex-shrink:0;text-align:center;display:flex;flex-direction:column;align-items:center}
 #header h1{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase}
 #header p{font-size:.62rem;letter-spacing:.25em;color:var(--text3);text-transform:uppercase;margin-top:2px}
 
@@ -229,7 +229,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="total-bar-bg"><div class="total-bar-fill" id="total-bar" style="width:0%"></div></div>
         <div class="weight-input-row">
           <span class="weight-label">Parfüm ağırlığı (gr)</span>
-          <input class="weight-input" type="number" id="weight-input" value="100" min="1" oninput="updateFormula()">
+          <button onclick="var v=parseFloat(document.getElementById('weight-input').value.replace(',','.'))||100;document.getElementById('weight-input').value=Math.max(0.001,Math.round((v-0.1)*1000)/1000);updateFormula()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:1rem">−</button>
+          <input class="weight-input" type="text" id="weight-input" value="100" inputmode="decimal" oninput="updateFormula()">
+          <button onclick="var v=parseFloat(document.getElementById('weight-input').value.replace(',','.'))||100;document.getElementById('weight-input').value=Math.round((v+0.1)*1000)/1000;updateFormula()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:1rem">+</button>
           <span style="font-size:.7rem;color:var(--text3)" id="concentrate-gr">Konsantre: 0.00 gr</span>
         </div>
       </div>
@@ -486,7 +488,7 @@ function addCurrentToFormula(){
 }
 
 function updateFormula(){
-  const weight = parseFloat(document.getElementById('weight-input').value)||100;
+  const weight = parseFloat(document.getElementById('weight-input').value.replace(',','.'))||100;
   const total = formula.reduce((s,f)=>s+f.pct,0);
   document.getElementById('total-pct').textContent=total.toFixed(2)+'%';
   const bar=document.getElementById('total-bar');
@@ -506,8 +508,8 @@ function updateFormula(){
     return `<div class="formula-item">
       <div class="fi-name">${f.name}${ifraWarn}</div>
       <div class="fi-pct">
-        <input class="pct-input" type="number" value="${f.pct}" step="0.1" min="0" max="100"
-          oninput="formula[${i}].pct=parseFloat(this.value)||0;updateFormula()">
+        <input class="pct-input" type="text" inputmode="decimal" value="${f.pct}" 
+          oninput="formula[${i}].pct=parseFloat(this.value.replace(',','.'))||0;updateFormula()">
         <span class="pct-unit">%</span>
       </div>
       <div class="fi-gr">${gr} gr</div>
