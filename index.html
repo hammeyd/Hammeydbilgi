@@ -22,8 +22,8 @@
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;overflow:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.6}
 
-#app{position:fixed;top:0;left:0;right:0;bottom:0;max-width:540px;margin:0 auto;display:flex;flex-direction:column;overflow:hidden}
-#header{padding:0px 20px 10px;background:linear-gradient(180deg,var(--bg) 0%,transparent 100%);position:relative;z-index:10;flex-shrink:0;text-align:center;display:flex;flex-direction:column;align-items:center}
+#app{display:flex;flex-direction:column;height:100vh;max-width:540px;margin:0 auto;position:relative}
+#header{padding:16px 20px 10px;background:linear-gradient(180deg,var(--bg) 0%,transparent 100%);position:relative;z-index:10;flex-shrink:0;text-align:center;display:flex;flex-direction:column;align-items:center}
 #header h1{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase}
 #header p{font-size:.62rem;letter-spacing:.25em;color:var(--text3);text-transform:uppercase;margin-top:2px}
 
@@ -121,35 +121,93 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .detail-add-btn{width:100%;padding:13px;background:var(--btn);border:none;border-radius:var(--r);color:#fff;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
 .detail-add-btn:hover{opacity:.85}
 
-/* FORMULA PAGE */
+/* STOCK PAGE */
 #formula-page{padding:14px;overflow-y:auto;flex:1;padding-bottom:80px}
 #formula-page h2{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;color:var(--gold);letter-spacing:.1em;margin-bottom:3px}
 #formula-page .subtitle{font-size:.62rem;color:var(--text3);letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px}
-.formula-total{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;margin-bottom:12px}
-.total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
-.total-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text3)}
-.total-value{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--gold)}
-.total-bar-bg{background:var(--bg3);border-radius:4px;height:4px;overflow:hidden}
-.total-bar-fill{height:100%;background:linear-gradient(90deg,var(--top),var(--gold));border-radius:4px;transition:width .4s,background .4s}
-.total-bar-fill.over{background:linear-gradient(90deg,#c0392b,#e74c3c)}
-.weight-input-row{display:flex;align-items:center;gap:10px;margin-top:10px}
-.weight-label{font-size:.62rem;color:var(--text3);letter-spacing:.1em;white-space:nowrap}
-.weight-input{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text);font-family:'Jost',sans-serif;font-size:.85rem;width:80px;text-align:center;outline:none}
-.weight-input:focus{border-color:var(--gold3)}
-#formula-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
-.formula-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:8px}
-.fi-name{flex:1;font-size:.85rem;color:var(--text);line-height:1.2}
-.fi-pct{display:flex;align-items:center;gap:5px}
-.pct-input{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1rem;width:62px;text-align:center;outline:none}
-.pct-input:focus{border-color:var(--gold3)}
-.pct-unit{font-size:.68rem;color:var(--text3)}
-.fi-gr{font-size:.7rem;color:var(--text3);min-width:38px;text-align:right}
-.fi-del{width:24px;height:24px;border-radius:50%;background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-size:.7rem}
-.fi-del:hover{background:#c0392b22;border-color:#c0392b;color:#e74c3c}
-.empty-formula{text-align:center;padding:40px 20px;color:var(--text3);font-size:.78rem;line-height:1.8}
-.empty-formula .big{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--border2);margin-bottom:8px}
-#clear-formula-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--border);border-radius:var(--r);color:var(--text3);font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s}
-#clear-formula-btn:hover{border-color:#c0392b44;color:#e74c3c}
+.stok-summary{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.stok-summary-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px;text-align:center}
+.stok-summary-card.warning{border-color:#e74c3c55;background:#fff0ee}
+.stok-summary-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);line-height:1}
+.stok-summary-card.warning .stok-summary-num{color:#c0392b}
+.stok-summary-lbl{font-size:.55rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.stok-add-row{display:flex;gap:7px;margin-bottom:0;align-items:center;position:relative}
+.stok-inv-label{display:flex;justify-content:space-between;align-items:center;padding:12px 2px 6px;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text3)}
+.stok-search{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;color:var(--text);font-family:'Jost',sans-serif;font-size:.82rem;outline:none}
+.stok-search:focus{border-color:var(--gold3)}
+.stok-filter-btn{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 11px;color:var(--text3);font-size:.7rem;cursor:pointer;white-space:nowrap;transition:all .2s}
+.stok-filter-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
+.stok-list{display:flex;flex-direction:column;gap:6px}
+.stok-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s}
+.stok-item.low{border-color:#e74c3c66}
+.stok-item.tracked{border-color:var(--gold3)55}
+.stok-header{display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer}
+.stok-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);flex-shrink:0}
+.stok-item.low .stok-dot{background:#e74c3c}
+.stok-item.tracked:not(.low) .stok-dot{background:var(--top)}
+.stok-name{flex:1;font-size:.85rem;color:var(--text);line-height:1.2}
+.stok-badge{font-size:.6rem;padding:2px 7px;border-radius:20px;font-weight:500;letter-spacing:.05em}
+.stok-badge.ok{background:#e8f5e9;color:#2a7a2a}
+.stok-badge.low{background:#ffebee;color:#c0392b}
+.stok-badge.unset{background:var(--bg3);color:var(--text3)}
+.stok-expand-btn{width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:.7rem;transition:transform .2s}
+.stok-item.open .stok-expand-btn{transform:rotate(180deg)}
+.stok-body{display:none;padding:0 12px 12px}
+.stok-item.open .stok-body{display:block}
+.stok-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+.stok-input-group{display:flex;flex-direction:column;gap:4px}
+.stok-input-label{font-size:.55rem;color:var(--text3);letter-spacing:.12em;text-transform:uppercase}
+.stok-input{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:1rem;width:100%;text-align:center;outline:none;box-sizing:border-box}
+.stok-input:focus{border-color:var(--gold3)}
+.stok-input.warn{border-color:#e74c3c88}
+.stok-actions{display:flex;gap:6px;margin-bottom:10px}
+.stok-action-btn{flex:1;padding:7px;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--text2);font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase}
+.stok-action-btn.giris{border-color:var(--top)55;color:var(--top)}
+.stok-action-btn.giris:hover{background:var(--top);color:#fff}
+.stok-action-btn.cikis{border-color:#e74c3c55;color:#c0392b}
+.stok-action-btn.cikis:hover{background:#e74c3c;color:#fff}
+.stok-empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:.78rem;line-height:1.8}
+.stok-empty .big{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--border2);margin-bottom:8px}
+#stok-search-dropdown{background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);box-shadow:0 8px 24px #00000018;max-height:220px;overflow-y:auto;margin-bottom:10px;z-index:10}
+.stok-dd-item{display:flex;align-items:center;gap:10px;padding:10px 13px;cursor:pointer;border-bottom:1px solid var(--border)66;transition:background .15s}
+.stok-dd-item:last-child{border-bottom:none}
+.stok-dd-item:hover{background:var(--bg2)}
+.stok-dd-item.already{opacity:.45;pointer-events:none}
+.stok-dd-name{flex:1;font-size:.83rem;color:var(--text)}
+.stok-dd-family{font-size:.62rem;color:var(--text3)}
+.stok-dd-add{font-size:.7rem;padding:3px 9px;border-radius:10px;background:var(--btn);color:#fff;font-weight:500}
+.stok-inv-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;display:flex;flex-direction:column;transition:border-color .2s;overflow:hidden}
+.stok-inv-item.low{border-color:#e74c3c88;background:#fff8f8}
+.stok-inv-top{display:flex;align-items:center;gap:10px;width:100%}
+.stok-inv-left{flex:1;min-width:0}
+.stok-inv-name{font-size:.88rem;color:var(--text);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stok-inv-detail{font-size:.72rem;color:var(--text3);margin-top:2px}
+.stok-inv-detail strong{color:var(--gold);font-weight:400}
+.stok-inv-detail .warn{color:#c0392b;font-weight:500}
+.stok-inv-actions{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.stok-inv-btn{width:28px;height:28px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.stok-inv-btn.g:hover{background:var(--top);border-color:var(--top);color:#fff}
+.stok-inv-btn.c:hover{background:#e74c3c;border-color:#e74c3c;color:#fff}
+.stok-inv-btn.edit:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+.stok-inv-btn.del:hover{background:#c0392b22;border-color:#c0392b;color:#c0392b}
+.stok-inv-expand{cursor:pointer}
+.stok-inv-sub{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);width:100%}
+.stok-inv-item.open .stok-inv-sub{display:block}
+.stok-inv-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+.stok-inv-inputs-2{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:8px}
+.stok-modal-overlay{position:fixed;inset:0;background:#00000066;z-index:200;display:flex;align-items:flex-end;justify-content:center}
+.stok-modal{background:var(--bg);border-radius:16px 16px 0 0;padding:20px;width:100%;max-width:430px;box-sizing:border-box}
+.stok-modal h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--gold);margin-bottom:14px}
+.stok-modal-row{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.stok-modal-input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Jost',sans-serif;font-size:.9rem;outline:none}
+.stok-modal-input:focus{border-color:var(--gold3)}
+.stok-modal-unit{font-size:.75rem;color:var(--text3)}
+.stok-modal-btns{display:flex;gap:8px}
+.stok-modal-btn{flex:1;padding:12px;border-radius:8px;border:none;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.stok-modal-btn.confirm{background:var(--btn);color:#fff}
+.stok-modal-btn.cancel{background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
+/* keep formula working in background */
+.formula-total,.formula-item,.pct-input,.fi-gr,.fi-del,.fi-pct,.fi-name,.total-row,.total-label,.total-value,.total-bar-bg,.total-bar-fill,.weight-input-row,.weight-label,.weight-input,.empty-formula,#formula-list,#clear-formula-btn{display:none!important}
 
 /* INFO PAGE */
 #info-page{padding:14px;overflow-y:auto;flex:1}
@@ -187,8 +245,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       Hammaddeler
     </button>
     <button class="nav-btn" data-page="formula" onclick="showPage('formula')">
-      <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
-      Formül
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Stok
     </button>
     <button class="nav-btn" data-page="info" onclick="showPage('info')">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -219,24 +277,61 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <!-- FORMULA PAGE -->
   <div id="formula" class="page" style="display:none">
     <div id="formula-page">
-      <h2>Formül Hesaplayıcı</h2>
-      <p class="subtitle">Bileşenleri ekle, oranları ayarla</p>
-      <div class="formula-total">
-        <div class="total-row">
-          <span class="total-label">Toplam Konsantre</span>
-          <span class="total-value" id="total-pct">0.00%</span>
+      <h2>Stok Takibi</h2>
+      <p class="subtitle">Hammadde envanteri & hareket defteri</p>
+
+      <!-- Summary cards -->
+      <div class="stok-summary">
+        <div class="stok-summary-card">
+          <div class="stok-summary-num" id="stok-toplam">0</div>
+          <div class="stok-summary-lbl">Hammadde</div>
         </div>
-        <div class="total-bar-bg"><div class="total-bar-fill" id="total-bar" style="width:0%"></div></div>
-        <div class="weight-input-row">
-          <span class="weight-label">Parfüm ağırlığı (gr)</span>
-          <button onclick="var v=parseFloat(document.getElementById('weight-input').value.replace(',','.'))||100;document.getElementById('weight-input').value=Math.max(0.001,Math.round((v-0.1)*1000)/1000);updateFormula()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:1rem">−</button>
-          <input class="weight-input" type="text" id="weight-input" value="100" inputmode="decimal" oninput="updateFormula()">
-          <button onclick="var v=parseFloat(document.getElementById('weight-input').value.replace(',','.'))||100;document.getElementById('weight-input').value=Math.round((v+0.1)*1000)/1000;updateFormula()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:1rem">+</button>
-          <span style="font-size:.7rem;color:var(--text3)" id="concentrate-gr">Konsantre: 0.00 gr</span>
+        <div class="stok-summary-card warning" id="stok-dusuk-card">
+          <div class="stok-summary-num" id="stok-dusuk">0</div>
+          <div class="stok-summary-lbl">Düşük Stok</div>
         </div>
+
       </div>
+
+      <!-- Add search row -->
+      <div class="stok-add-row">
+        <input class="stok-search" type="text" id="stok-search" placeholder="+ Hammadde ekle (ara)..." oninput="renderStokSearch()" autocomplete="off" onfocus="renderStokSearch()">
+        <button class="stok-filter-btn" id="stok-filter-low" onclick="setStokFilter('low')" title="Düşük stok">⚠</button>
+      </div>
+      <div id="stok-search-dropdown" style="display:none"></div>
+
+      <!-- Inventory label -->
+      <div class="stok-inv-label" id="stok-inv-label" style="display:none">
+        <span>Envanter</span>
+        <span id="stok-inv-count" style="font-size:.6rem;color:var(--text3)"></span>
+      </div>
+
+      <!-- Inventory list -->
+      <div class="stok-list" id="stok-list">
+        <div class="stok-empty"><div class="big">📦</div>Hammaddeler sekmesinde<br><strong>+</strong> butonuna basarak<br>stoğa ekleyin</div>
+      </div>
+    </div>
+
+    <!-- Hidden formula elements (kept for formula logic) -->
+    <div style="display:none">
+      <div class="formula-total"><div class="total-row"><span class="total-label"></span><span class="total-value" id="total-pct"></span></div><div class="total-bar-bg"><div class="total-bar-fill" id="total-bar"></div></div><div class="weight-input-row"><span class="weight-label"></span><input class="weight-input" type="number" id="weight-input" value="100"><span id="concentrate-gr"></span></div></div>
       <div id="formula-list"></div>
-      <button id="clear-formula-btn" onclick="clearFormula()">Formülü Temizle</button>
+      <button id="clear-formula-btn"></button>
+    </div>
+  </div>
+
+  <!-- STOCK MOVEMENT MODAL -->
+  <div class="stok-modal-overlay" id="stok-modal" style="display:none" onclick="closeStokModal(event)">
+    <div class="stok-modal">
+      <h3 id="stok-modal-title">Stok Hareketi</h3>
+      <div class="stok-modal-row">
+        <input class="stok-modal-input" type="number" id="stok-modal-input" min="0" step="0.1" placeholder="Miktar girin...">
+        <span class="stok-modal-unit">gr/ml</span>
+      </div>
+      <div class="stok-modal-btns">
+        <button class="stok-modal-btn cancel" onclick="closeStokModal()">İptal</button>
+        <button class="stok-modal-btn confirm" id="stok-modal-confirm" onclick="confirmStokModal()">Kaydet</button>
+      </div>
     </div>
   </div>
 
@@ -291,7 +386,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     <div class="detail-row" id="detail-row2"></div>
     <div class="detail-section" id="detail-avg-section"></div>
     <div style="margin-top:8px">
-      <button class="detail-add-btn" onclick="addCurrentToFormula()">+ Formüle Ekle</button>
+      <button class="detail-add-btn" onclick="addCurrentToStok()">+ Stoğa Ekle</button>
     </div>
   </div>
 </div>
@@ -306,7 +401,6 @@ let activeFamily = '';
 let activeNote = '';
 let activeTur = '';
 let currentIngredient = null;
-const formula = [];
 
 // Family filters (top 14 by count)
 const TOP_FAMILIES = Object.entries(
@@ -408,7 +502,7 @@ function renderList(){
           </div>
           ${x.scent?`<div class="ing-scent">${x.scent}</div>`:''}
         </div>
-        <button class="add-btn-sm" onclick="event.stopPropagation();addToFormula(${x.id})" title="Formüle ekle">+</button>
+        <button class="add-btn-sm" onclick="event.stopPropagation();quickAddToStok(${x.id})" title="Stoğa ekle">+</button>
       </div>
       <div class="ing-footer">
         <span class="ing-uretici">${x.uretici||''}</span>
@@ -473,7 +567,344 @@ function closeDetail(){
   currentIngredient=null;
 }
 
-// FORMULA
+// ==================== STOK TAKİBİ ====================
+let stokData = {}; // { ingredientId: { gr, pct, minGr, hareketler[] } }
+let stokFilter = 'all';
+let stokModalState = null;
+
+function loadStok() {
+  try { stokData = JSON.parse(localStorage.getItem('hammeyd_stok') || '{}'); } catch(e) { stokData = {}; }
+}
+
+function saveStok() {
+  try { localStorage.setItem('hammeyd_stok', JSON.stringify(stokData)); } catch(e) {}
+}
+
+function getStokItem(id) {
+  const key = String(id);
+  if (!stokData[key]) stokData[key] = { gr: null, pct: null, minGr: null, tarih: null, hareketler: [] };
+  return stokData[key];
+}
+
+function isTracked(id) {
+  const s = stokData[id] || stokData[String(id)];
+  return s && (s.gr !== null || s.pct !== null);
+}
+
+function isLow(id) {
+  const s = stokData[id] || stokData[String(id)];
+  if (!s || s.gr === null || s.gr === undefined || s.minGr === null || s.minGr === undefined) return false;
+  return parseFloat(s.gr) < parseFloat(s.minGr);
+}
+
+// Quick add from + button in ingredients list
+function quickAddToStok(id) {
+  const s = getStokItem(id);
+  // Mark as tracked with 0 if not yet
+  if (s.gr === null) s.gr = 0;
+  saveStok();
+  const x = INGREDIENTS.find(i => i.id === id);
+  showToast((x ? x.name.split(' ').slice(0,3).join(' ') : '') + ' stoğa eklendi');
+  renderStok();
+}
+
+// From detail panel
+function addCurrentToStok() {
+  if (currentIngredient) { quickAddToStok(currentIngredient.id); closeDetail(); }
+}
+
+// Kept for backward compat
+function addCurrentToFormula() { addCurrentToStok(); }
+function addToFormula(id) { quickAddToStok(id); }
+
+function setStokFilter(f) {
+  stokFilter = (stokFilter === f) ? 'all' : f;
+  document.querySelectorAll('.stok-filter-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('stok-filter-' + stokFilter);
+  if (btn) btn.classList.add('active');
+  renderStokInventory();
+}
+
+// Called when stok tab opens
+function renderStok() {
+  renderStokInventory();
+  updateStokSummary();
+}
+
+// Search dropdown for adding new items
+function renderStokSearch() {
+  const q = (document.getElementById('stok-search')?.value || '').trim().toLowerCase();
+  const dd = document.getElementById('stok-search-dropdown');
+  if (!dd) return;
+  if (!q) { dd.style.display = 'none'; return; }
+
+  const results = INGREDIENTS.filter(x => 
+    x.name.toLowerCase().includes(q) || (x.family||'').toLowerCase().includes(q)
+  ).slice(0, 12);
+
+  if (!results.length) { dd.innerHTML = '<div style="padding:10px 13px;font-size:.78rem;color:var(--text3)">Sonuç bulunamadı</div>'; dd.style.display = 'block'; return; }
+
+  dd.innerHTML = results.map(x => {
+    const already = isTracked(x.id);
+    return `<div class="stok-dd-item${already ? ' already' : ''}" onclick="addFromSearch(${x.id})">
+      <div>
+        <div class="stok-dd-name">${x.name}</div>
+        <div class="stok-dd-family">${x.family||''}${x.tur ? ' · ' + x.tur : ''}</div>
+      </div>
+      <span class="stok-dd-add">${already ? '✓' : '+ Ekle'}</span>
+    </div>`;
+  }).join('');
+  dd.style.display = 'block';
+}
+
+function addFromSearch(id) {
+  quickAddToStok(id);
+  document.getElementById('stok-search').value = '';
+  document.getElementById('stok-search-dropdown').style.display = 'none';
+  renderStokInventory();
+}
+
+// Hide dropdown on outside click
+document.addEventListener('click', e => {
+  const dd = document.getElementById('stok-search-dropdown');
+  const input = document.getElementById('stok-search');
+  if (dd && input && !dd.contains(e.target) && e.target !== input) {
+    dd.style.display = 'none';
+  }
+});
+
+// Main inventory render - only tracked items
+function renderStokInventory() {
+  let tracked = INGREDIENTS.filter(x => isTracked(x.id));
+  if (stokFilter === 'low') tracked = tracked.filter(x => isLow(x.id));
+
+  const label = document.getElementById('stok-inv-label');
+  const countEl = document.getElementById('stok-inv-count');
+  const container = document.getElementById('stok-list');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  if (!tracked.length) {
+    if (label) label.style.display = 'none';
+    const empty = document.createElement('div');
+    empty.className = 'stok-empty';
+    empty.innerHTML = stokFilter === 'low'
+      ? '<div class="big">🎉</div>Düşük stok yok!'
+      : '<div class="big">📦</div>Hammaddeler sekmesinde<br><strong>+</strong> butonuna basarak<br>stoğa ekleyin';
+    container.appendChild(empty);
+    return;
+  }
+
+  if (label) label.style.display = 'flex';
+  if (countEl) countEl.textContent = tracked.length + ' ürün';
+
+  tracked.sort((a, b) => {
+    const al = isLow(a.id), bl = isLow(b.id);
+    if (al !== bl) return al ? -1 : 1;
+    return a.name.localeCompare(b.name, 'tr');
+  });
+
+  tracked.forEach(x => {
+    const sid = String(x.id);
+    const s = stokData[sid] || stokData[x.id] || {};
+    const gr    = (s.gr    != null) ? s.gr    : 0;
+    const pct   = (s.pct   != null) ? s.pct   : null;
+    const minGr = (s.minGr != null) ? s.minGr : null;
+    const tarih = s.tarih  || null;
+    const low   = isLow(x.id);
+
+    // Build detail parts
+    let detailParts = [];
+    if (pct !== null) detailParts.push('<strong>%' + parseFloat(pct).toFixed(pct % 1 === 0 ? 0 : 1) + '</strong>');
+    const grStr = parseFloat(gr).toFixed(gr % 1 === 0 ? 0 : 1);
+    detailParts.push(low ? '<span class="warn">' + grStr + ' gr/ml ⚠</span>' : grStr + ' gr/ml');
+    if (tarih) detailParts.push('📅 ' + tarih.split('-').reverse().join('.'));
+    if (minGr !== null) detailParts.push('min: ' + parseFloat(minGr).toFixed(0) + ' gr');
+
+    // Card element
+    const card = document.createElement('div');
+    card.className = 'stok-inv-item' + (low ? ' low' : '');
+    card.id = 'si-' + x.id;
+
+    // Top row
+    const top = document.createElement('div');
+    top.className = 'stok-inv-top';
+
+    const left = document.createElement('div');
+    left.className = 'stok-inv-left stok-inv-expand';
+    left.onclick = () => toggleInvItem(x.id);
+    left.innerHTML = '<div class="stok-inv-name">' + x.name + '</div><div class="stok-inv-detail">' + detailParts.join(' · ') + '</div>';
+
+    const actions = document.createElement('div');
+    actions.className = 'stok-inv-actions';
+
+    const btnG = document.createElement('button');
+    btnG.className = 'stok-inv-btn g'; btnG.title = 'Giriş'; btnG.textContent = '+';
+    btnG.onclick = () => openStokModal(x.id, 'giris');
+
+    const btnC = document.createElement('button');
+    btnC.className = 'stok-inv-btn c'; btnC.title = 'Çıkış'; btnC.textContent = '−';
+    btnC.onclick = () => openStokModal(x.id, 'cikis');
+
+    const btnDel = document.createElement('button');
+    btnDel.className = 'stok-inv-btn del'; btnDel.title = 'Sil'; btnDel.textContent = '✕';
+    btnDel.onclick = () => removeFromStok(x.id);
+
+    actions.appendChild(btnG);
+    actions.appendChild(btnC);
+    actions.appendChild(btnDel);
+    top.appendChild(left);
+    top.appendChild(actions);
+
+    // Sub (inputs)
+    const sub = document.createElement('div');
+    sub.className = 'stok-inv-sub';
+
+    function makeInput(label, type, value, field, attrs) {
+      const g = document.createElement('div');
+      g.className = 'stok-input-group';
+      const lbl = document.createElement('label');
+      lbl.className = 'stok-input-label';
+      lbl.textContent = label;
+      const inp = document.createElement('input');
+      inp.className = 'stok-input' + (field === 'gr' && low ? ' warn' : '');
+      inp.type = type;
+      if (value !== null && value !== undefined && value !== '') inp.value = value;
+      if (attrs) Object.assign(inp, attrs);
+      inp.oninput = function() { updateStokField(x.id, field, this.value); };
+      g.appendChild(lbl);
+      g.appendChild(inp);
+      return g;
+    }
+
+    const inputs1 = document.createElement('div');
+    inputs1.className = 'stok-inv-inputs';
+    inputs1.appendChild(makeInput('Miktar (gr/ml)', 'number', gr, 'gr', {min:0, step:0.1, placeholder:'0'}));
+    inputs1.appendChild(makeInput('Konsantre %', 'number', pct !== null ? pct : '', 'pct', {min:0, max:100, step:0.1, placeholder:'—'}));
+    inputs1.appendChild(makeInput('Min. Eşik (gr)', 'number', minGr !== null ? minGr : '', 'minGr', {min:0, step:0.1, placeholder:'—'}));
+
+    const inputs2 = document.createElement('div');
+    inputs2.className = 'stok-inv-inputs-2';
+    inputs2.appendChild(makeInput('Giriş Tarihi', 'date', tarih || '', 'tarih', {}));
+
+    sub.appendChild(inputs1);
+    sub.appendChild(inputs2);
+
+    card.appendChild(top);
+    card.appendChild(sub);
+    container.appendChild(card);
+  });
+
+  updateStokSummary();
+}
+function toggleInvItem(id) {
+  const el = document.getElementById('si-' + id);
+  if (el) el.classList.toggle('open');
+}
+
+function removeFromStok(id) {
+  delete stokData[id];
+  saveStok();
+  renderStokInventory();
+  updateStokSummary();
+  showToast('Stoktan çıkarıldı');
+}
+
+function updateStokField(id, field, val) {
+  const s = getStokItem(String(id));
+  const num = val === '' ? null : parseFloat(val);
+  s[field] = (num === null || isNaN(num)) ? null : num;
+  saveStok();
+  // Re-render this item's detail line inline
+  const el = document.getElementById('si-' + id);
+  if (el) {
+    const low = isLow(id);
+    el.className = 'stok-inv-item' + (low ? ' low' : '') + ' open';
+    const x = INGREDIENTS.find(i => i.id === id);
+    const sv = stokData[id] || {};
+    const gr2 = sv.gr !== null && sv.gr !== undefined ? sv.gr : 0;
+    const pct2 = sv.pct !== null && sv.pct !== undefined ? sv.pct : null;
+    const min2 = sv.minGr !== null && sv.minGr !== undefined ? sv.minGr : null;
+    let dp = [];
+    if (pct2 !== null) dp.push(`<strong>%${parseFloat(pct2).toFixed(pct2 % 1 === 0 ? 0 : 1)}</strong>`);
+    const grStr2 = parseFloat(gr2).toFixed(gr2 % 1 === 0 ? 0 : 1);
+    if (low) dp.push(`<span class="warn">${grStr2} gr/ml ⚠</span>`);
+    else dp.push(`${grStr2} gr/ml`);
+    if (min2 !== null) dp.push(`min: ${parseFloat(min2).toFixed(0)} gr`);
+    const detailEl = el.querySelector('.stok-inv-detail');
+    if (detailEl) detailEl.innerHTML = dp.join(' · ');
+  }
+  updateStokSummary();
+}
+
+function updateStokSummary() {
+  const trackedIds = Object.keys(stokData).filter(id => isTracked(id));
+  const tracked = trackedIds.length;
+  const low = trackedIds.filter(id => isLow(id)).length;
+  
+  const tEl = document.getElementById('stok-toplam');
+  if (tEl) tEl.textContent = tracked;
+  const dEl = document.getElementById('stok-dusuk');
+  if (dEl) dEl.textContent = low;
+
+  const card = document.getElementById('stok-dusuk-card');
+  if (card) card.style.borderColor = low > 0 ? '#e74c3c88' : '';
+}
+
+function openStokModal(id, tip) {
+  stokModalState = { id, tip };
+  const x = INGREDIENTS.find(i => i.id === id);
+  const modal = document.getElementById('stok-modal');
+  const title = document.getElementById('stok-modal-title');
+  const btn = document.getElementById('stok-modal-confirm');
+  if (title) title.textContent = (tip === 'giris' ? '+ Giriş: ' : '− Çıkış: ') + (x ? x.name.split(' ').slice(0,3).join(' ') : '');
+  if (btn) { btn.textContent = tip === 'giris' ? 'Ekle' : 'Çıkar'; btn.style.background = tip === 'giris' ? 'var(--top)' : '#e74c3c'; }
+  const input = document.getElementById('stok-modal-input');
+  if (input) { input.value = ''; setTimeout(() => input.focus(), 50); }
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeStokModal(e) {
+  if (e && e.target !== document.getElementById('stok-modal')) return;
+  const modal = document.getElementById('stok-modal');
+  if (modal) modal.style.display = 'none';
+  stokModalState = null;
+}
+
+function confirmStokModal() {
+  if (!stokModalState) return;
+  const { id, tip } = stokModalState;
+  const val = parseFloat(document.getElementById('stok-modal-input').value);
+  if (isNaN(val) || val <= 0) { showToast('Geçerli bir miktar girin'); return; }
+  
+  const s = getStokItem(id);
+  const now = new Date();
+  const tarih = `${now.getDate().toString().padStart(2,'0')}.${(now.getMonth()+1).toString().padStart(2,'0')} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  
+  if (tip === 'giris') {
+    s.gr = (parseFloat(s.gr) || 0) + val;
+  } else {
+    s.gr = Math.max(0, (parseFloat(s.gr) || 0) - val);
+  }
+  
+  s.hareketler = s.hareketler || [];
+  s.hareketler.push({ tip, miktar: val, tarih });
+  if (s.hareketler.length > 20) s.hareketler = s.hareketler.slice(-20);
+  
+  saveStok();
+  const modal = document.getElementById('stok-modal');
+  if (modal) modal.style.display = 'none';
+  stokModalState = null;
+  
+  const x = INGREDIENTS.find(i => i.id === id);
+  showToast(`${x ? x.name.split(' ')[0] : ''}: ${tip === 'giris' ? '+' : '-'}${val} gr/ml`);
+  renderStokInventory();
+}
+
+// ==================== FORMÜL (arka planda çalışır) ====================
+const formula = [];
+
 function addToFormula(id){
   const x=INGREDIENTS.find(i=>i.id===id);
   if(!x) return;
@@ -483,39 +914,15 @@ function addToFormula(id){
   showToast(`${x.name.split(' ').slice(0,3).join(' ')} eklendi`);
 }
 
-function addCurrentToFormula(){
-  if(currentIngredient){ addToFormula(currentIngredient.id); closeDetail(); }
-}
-
 function updateFormula(){
-  const weight = parseFloat(document.getElementById('weight-input').value.replace(',','.'))||100;
+  const weight = parseFloat(document.getElementById('weight-input')?.value)||100;
   const total = formula.reduce((s,f)=>s+f.pct,0);
-  document.getElementById('total-pct').textContent=total.toFixed(2)+'%';
+  const tEl = document.getElementById('total-pct');
+  if(tEl) tEl.textContent=total.toFixed(2)+'%';
   const bar=document.getElementById('total-bar');
-  bar.style.width=Math.min(total,100)+'%';
-  bar.className='total-bar-fill'+(total>100?' over':'');
-  document.getElementById('concentrate-gr').textContent=`Konsantre: ${(total/100*weight).toFixed(2)} gr`;
-
-  const list=document.getElementById('formula-list');
-  if(!formula.length){
-    list.innerHTML=`<div class="empty-formula"><div class="big">∅</div>Hammadde listesinden + butonuna<br>basarak bileşen ekleyin</div>`;
-    return;
-  }
-  list.innerHTML=formula.map((f,i)=>{
-    const gr=(f.pct/100*weight).toFixed(3);
-    const numIfra=parseFloat(f.ifra);
-    const ifraWarn=(!isNaN(numIfra)&&f.pct>numIfra)?`<span style="font-size:.55rem;color:#e74c3c;margin-left:4px">⚠ IFRA ${numIfra}%</span>`:'';
-    return `<div class="formula-item">
-      <div class="fi-name">${f.name}${ifraWarn}</div>
-      <div class="fi-pct">
-        <input class="pct-input" type="text" inputmode="decimal" value="${f.pct}" 
-          oninput="formula[${i}].pct=parseFloat(this.value.replace(',','.'))||0;updateFormula()">
-        <span class="pct-unit">%</span>
-      </div>
-      <div class="fi-gr">${gr} gr</div>
-      <button class="fi-del" onclick="formula.splice(${i},1);updateFormula()">✕</button>
-    </div>`;
-  }).join('');
+  if(bar){ bar.style.width=Math.min(total,100)+'%'; bar.className='total-bar-fill'+(total>100?' over':''); }
+  const cgEl = document.getElementById('concentrate-gr');
+  if(cgEl) cgEl.textContent=`Konsantre: ${(total/100*weight).toFixed(2)} gr`;
 }
 
 function clearFormula(){
@@ -574,9 +981,11 @@ function showPage(name){
   page.classList.add('active');
   document.querySelector(`.nav-btn[data-page="${name}"]`).classList.add('active');
   if(name==='info') buildStats();
+  if(name==='formula') renderStok();
 }
 
 // INIT
+loadStok();
 buildFilters();
 filterIngredients();
 updateFormula();
